@@ -22,71 +22,71 @@ class Properties {
         headJointTypeCode = 1;
     }
 
-    private ArrayList<String> getVesselClass() {
+    public ArrayList<String> getVesselClass() {
         return vesselClass;
     }
 
-    private ArrayList<String> getHeadJointTypeLis() {
+    public ArrayList<String> getHeadJointTypeLis() {
         return headJointType;
     }
 
-    private int getHeadJointType() {
+    public int getHeadJointType() {
         return headJointTypeCode;
     }
 
-    private int getVesselClassCode() {
+    public int getVesselClassCode() {
         return vesselClassCode;
     }
 
-    private double getAlpha() {
+    public double getAlpha() {
         return alpha;
     }
 
-    private void setCorrosionAllowance(double ca) {
+    public void setCorrosionAllowance(double ca) {
         this.ca = ca;
     }
 
-    private double getCorrosionAllowance() {
+    public double getCorrosionAllowance() {
 
         return ca;
 
     }
 
-    private void setVesselClassCode(int c) {
+    public void setVesselClassCode(int c) {
         vesselClassCode = c;
     }
 
-    private void setFluidDensity(double fluidDensity) {
+    public void setFluidDensity(double fluidDensity) {
         this.fluidDensity = fluidDensity;
     }
 
-    private void setOperatingPressure(double operatingPressure) {
+    public void setOperatingPressure(double operatingPressure) {
         P = operatingPressure;
         calcDesignPressure();
     }
 
-    private void setDesignPressure(double designPressure) {
+    public void setDesignPressure(double designPressure) {
         dP = P = designPressure;
     }
 
-    private void setDesignTemperature(double T) {
+    public void setDesignTemperature(double T) {
         dT = T;
     }
 
-    private void setF(double f) {
+    public void setF(double f) {
         this.f = f;
     }
 
-    private double getF() {
+    public double getF() {
         return (f * 100000.0);
     }
 
-    private void setFluidHeight(double ht) {
+    public void setFluidHeight(double ht) {
         this.ht = ht;
         calcDesignPressure();
     }
 
-    private void calcDesignPressure() {
+    public void calcDesignPressure() {
 
         double waterHead = (fluidDensity * 9.81 * ht) / 1000.0;
         if (waterHead > 0.05 * P) {
@@ -97,7 +97,7 @@ class Properties {
 
     }
 
-    private void setH1(double H1) {
+    public void setH1(double H1) {
         this.H1i = H1;
         if (H1i > getBoundaryH1()) {
             H1 = getBoundaryH1();
@@ -106,7 +106,7 @@ class Properties {
         }
     }
 
-    private void setH2(double H2) {
+    public void setH2(double H2) {
         this.H2i = H2;
         if (H2i > getBoundaryH2()) {
             H2 = getBoundaryH2();
@@ -115,47 +115,51 @@ class Properties {
         }
     }
 
-    private void setDi(double Di) {
+    public void setDi(double Di) {
         this.Di = Di;
     }
 
-    private void setDno(double Dno) {
+    public void setDno(double Dno) {
         dno = Dno;
     }
 
-    private void setDni(double Dni) {
+    public void setDni(double Dni) {
         dni = Dni;
     }
 
-    private double getBoundaryH1() {
+    public double getBoundaryH1() {
 
         double tn = dno - dni;
         return Math.sqrt((dni + 2 * ca) * (tn - ca));
 
     }
 
-    private double getBoundaryH2() {
+    public double getBoundaryH2() {
         double tn = dno - dni;
         return Math.sqrt((dni + 2 * ca) * (tn - 2 * ca));
     }
 
-    private double getDi() {
+    public double getDi() {
         return Di;
     }
 
-    private double getDo() {
+    public double getDo() {
         return Do;
     }
 
-    private void setDo(double t) {
+    public void setDo(double t) {
         Do = Di + 2 * t * 0.001;
     }
 
-    private void setJ(double J) {
+    public void setJ(double J) {
         this.J = J;
     }
 
-    private double getJ() {
+    public double getJ() {
         return J;
+    }
+    
+    public double getDesignP(){
+        return dP;
     }
 }
