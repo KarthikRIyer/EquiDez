@@ -25,11 +25,11 @@ public class NozzleCompensator {
     }
 
     private double getA() {
-        return (properties.getDni() * 0.001 + 2 * properties.getCorrosionAllowance()) * 0.001 * (shellDesigner.getTr() * 0.001);
+        return (properties.getDni() + 2 * properties.getCorrosionAllowance()) * 0.001 * (shellDesigner.getTr() * 0.001);
     }
 
     private double getAs() {
-        return (properties.getDni() * 0.001 + 2 * properties.getCorrosionAllowance()) * 0.001 * (shellDesigner.standardt() * 0.001 - shellDesigner.getTr() * 0.001 - properties.getCorrosionAllowance() * 0.001);
+        return (properties.getDni() + 2 * properties.getCorrosionAllowance()) * 0.001 * (shellDesigner.tstd - shellDesigner.getTr() - properties.getCorrosionAllowance() )*.0001;
     }
 
     private double getAn() {
@@ -37,11 +37,11 @@ public class NozzleCompensator {
     }
 
     private double getAo() {
-        return 2 * properties.getH1() * 0.001 * (properties.getNozzleThickness() * 0.001 - getNozzleRequiredThickness() * 0.001 - properties.getCorrosionAllowance() * 0.001);
+        return 2 * properties.getH1() * 0.001 * (properties.getNozzleThickness() - getNozzleRequiredThickness() - properties.getCorrosionAllowance() )*0.001;
     }
 
     private double getAi() {
-        return 2 * properties.getH2() * 0.001 * (properties.getNozzleThickness() * 0.001 - 2 * properties.getCorrosionAllowance() * 0.001);
+        return 2 * properties.getH2() * 0.001 * (properties.getNozzleThickness()  - 2 * properties.getCorrosionAllowance() )*0.001;
     }
 
     private double getNozzleRequiredThickness() {
