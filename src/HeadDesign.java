@@ -114,6 +114,6 @@ class HeadDesign {
         }
 
         return cData[xi][yi];
-        
+
     }
 }
