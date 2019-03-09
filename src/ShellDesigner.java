@@ -1,11 +1,26 @@
 class ShellDesigner {
+  
     private Properties prop;
 
     ShellDesigner(Properties properties) {
         prop = properties;
     }
 
-    double ts, tnew, tstd;
+    public double ts, tnew, tstd;
+
+    double cyl() {
+        ts = ((prop.getDesignP()) * (prop.getDi()) / ((2 * prop.getf() * prop.getJ()) - (prop.getDesignP()))) / 1000;
+        return ts;
+    }
+
+    double sph() {
+        ts = ((prop.getDesignP()) * (prop.getDi()) / ((4 * prop.getf() * prop.getJ()) - (prop.getDesignP()))) / 1000;
+        return ts;
+    }
+
+    private double getTr() {
+        return ts;
+    }
 
     public double cyl() {
         ts = ((prop.getDesignP()) * (prop.getDi()) / ((2 * prop.getF() * prop.getJ()) - (prop.getDesignP()))) / 1000;
@@ -30,13 +45,14 @@ class ShellDesigner {
         } else if (tnew > tstdarray[24]) {
             tstd = tnew;
         } else {
-            for (int i = 0; i < 25; i++) {
-                if (tnew > tstdarray[i] && tnew < tstdarray[i + 1]) {
+            for (int i=0; i<=24; i++){
+                if (tnew > tstdarray[i] && tnew < tst[i + 1]) {
                     tstd = tstdarray[i + 1];
                     break;
                 }
             }
         }
+        prop.setDo(tstd);
         return tstd;
     }
 }
