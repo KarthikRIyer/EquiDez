@@ -3,8 +3,43 @@ import java.util.ArrayList;
 class Properties {
 
     ArrayList<String> vesselClass, headJointType;
-    double P = 0, dP = 0, dT = 0, f = 0, Pl = 0, fluidDensity = 0, ht = 0, alpha = 0, Di = 0, dni = 0, dno = 0, H1i = 0, H2i = 0, H1 = 0, H2 = 0, ca = 0, Do = 0, J = 0;
+    double P = 0;
+    double dP = 0;
+    double dT = 0;
+    double f = 0;
+    double Pl = 0;
+    double fluidDensity = 0;
+    double ht = 0;
+    double alpha = 0;
+    double Di = 0;
+    double dni = 0;
+    double dno = 0;
+    double H1i = 0;
+    double H2i = 0;
+    double H1 = 0;
+    double H2 = 0;
+    double ca = 0;
+    double Do = 0;
+    double J = 0;
+    double tstd = 0;
+    double tr = 0;
     int vesselClassCode = -1, headJointTypeCode = -1;
+
+    public void setTStd(double tstd) {
+        this.tstd = tstd;
+    }
+
+    public void setTr(double tr) {
+        this.tr = tr;
+    }
+
+    public double getTStd() {
+        return tstd;
+    }
+
+    public double getTr() {
+        return tr;
+    }
 
     Properties() {
         vesselClass = new ArrayList<>();
@@ -24,6 +59,22 @@ class Properties {
 
     public ArrayList<String> getVesselClass() {
         return vesselClass;
+    }
+
+    public double getH1() {
+        return H1;
+    }
+
+    public double getH2() {
+        return H2;
+    }
+
+    public double getdesignTemperature() {
+        return dT;
+    }
+
+    public double getNozzleThickness() {
+        return dno - dni;
     }
 
     public ArrayList<String> getHeadJointTypeLis() {
