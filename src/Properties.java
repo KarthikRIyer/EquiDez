@@ -127,6 +127,14 @@ class Properties {
         dni = Dni;
     }
 
+    public double getDni() {
+        return dni;
+    }
+
+    public double getDno() {
+        return dno;
+    }
+
     public double getBoundaryH1() {
 
         double tn = dno - dni;
@@ -158,8 +166,8 @@ class Properties {
     public double getJ() {
         return J;
     }
-    
-    public double getDesignP(){
+
+    public double getDesignP() {
         return dP;
     }
 }
