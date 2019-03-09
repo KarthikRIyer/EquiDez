@@ -29,7 +29,7 @@ public class NozzleCompensator {
     }
 
     private double getAs() {
-        return (properties.getDni() * 0.001 + 2 * properties.getCorrosionAllowance()) * 0.001 * (shellDesigner.tstd * 0.001 - shellDesigner.getTr() * 0.001 - properties.getCorrosionAllowance() * 0.001);
+        return (properties.getDni() * 0.001 + 2 * properties.getCorrosionAllowance()) * 0.001 * (shellDesigner.standardt() * 0.001 - shellDesigner.getTr() * 0.001 - properties.getCorrosionAllowance() * 0.001);
     }
 
     private double getAn() {

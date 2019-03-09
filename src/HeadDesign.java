@@ -9,8 +9,8 @@ class HeadDesign {
     }
 
     double flatHead() {
-        double C;
-        switch (prop.getHeadJointType) {
+        double C = 0;
+        switch (prop.getHeadJointType()) {
             case 1:
                 C = 0.45;
                 break;
@@ -29,8 +29,8 @@ class HeadDesign {
     }
 
     double conicalHead() {
-        double t1, t2, Z, l, Dk, t1std, t2std;
-        switch (prop.getAlpha()) {
+        double t1, t2, Z = 0, l, Dk, t1std, t2std;
+        switch ((int) prop.getAlpha()) {
             case 20:
                 Z = 1.00;
                 break;
@@ -46,15 +46,16 @@ class HeadDesign {
         }
         t1 = ((prop.getDesignP()) * (prop.getDo()) * Z / ((2 * prop.getF() * prop.getJ()))) / 1000;
         l = 0.5 * Math.sqrt(1000 * (prop.getDo() * prop.getTStd()) / Math.cos(Math.toRadians(prop.getAlpha())));
-        Dk = ((1000 * prop.getDi()) - (2 * l * math.sin(Math.toRadians(prop.getAlpha())))) / 1000;
-        t2 = (prop.getDesignP() * Dk) / (((2 * prop.getF() * prop.getJ()) - prop.getDesignP()) * Math.cos(Math.toradians(prop.getAlpha())) * 1000);
-        t1std = StandardThickness.standardT(t1, prop);
-        t2std = StandardThickness.standardT(t2, prop);
+        Dk = ((1000 * prop.getDi()) - (2 * l * Math.sin(Math.toRadians(prop.getAlpha())))) / 1000;
+        t2 = (prop.getDesignP() * Dk) / (((2 * prop.getF() * prop.getJ()) - prop.getDesignP()) * Math.cos(Math.toRadians(prop.getAlpha())) * 1000);
+        t1std = StandardThickness.standardt(t1, prop);
+        t2std = StandardThickness.standardt(t2, prop);
         if (t1 > t2) {
             t = t1std;
         } else {
             t = t2std;
         }
+        return t;
     }
 
     double torisphericalHead() {
@@ -67,12 +68,52 @@ class HeadDesign {
             Ro = Ri + 2 * trand;
             param1 = Ro - Math.sqrt(((Ro - (prop.getDo() / 2)) * (Ro + ((prop.getDo()) / 2) - (2 * ro))));
             param2 = (Math.pow((prop.getDo()), 2)) / (2 * Ro);
-            param3 = sqrt((prop.getDo()) * ro / 2);
+            param3 = Math.sqrt((prop.getDo()) * ro / 2);
             he = Math.min(Math.min(param1, param2), param3);
-            C = prop.getC((he / prop.getDo()), (trand / prop.getDo()));
+            C = getTorisphericalC((he / prop.getDo()), (trand / prop.getDo()));
             trand = ((prop.getDesignP()) * (prop.getDo()) * C) / ((2 * (prop.getF())) * prop.getJ());
         }
-        t = StandardThickness.standardT(trand, prop);
+        t = StandardThickness.standardt(trand, prop);
+        return t;
+    }
 
+    private double getTorisphericalC(double heByDo, double tByDo) {
+
+        double xHeadings[] = {0.002, 0.005, 0.01, 0.02, 0.04};//t/Do
+        double yHeadings[] = {0.15, 0.20, 0.25, 0.30, 0.40, 0.50};//hE/Do
+
+        int xi = 0, yi = 0;
+
+        double cData[][] = {{4.55, 2.66, 2.15, 1.95, 1.75},
+                {2.30, 1.70, 1.45, 1.37, 1.32},
+                {1.38, 1.14, 1.00, 1.00, 1.00},
+                {0.92, 0.77, 0.77, 0.77, 0.77},
+                {0.59, 0.59, 0.59, 0.59, 0.59},
+                {0.55, 0.55, 0.55, 0.55, 0.55}};
+
+
+        for (int i = 0; i < xHeadings.length - 1; i++) {
+            if (tByDo > xHeadings[i] && tByDo < xHeadings[i + 1]) {
+                xi = i + 1;
+                break;
+            } else if (tByDo < xHeadings[0]) {
+                xi = 0;
+            } else {
+                xi = xHeadings.length - 1;
+            }
+        }
+        for (int j = 0; j < yHeadings.length - 1; j++) {
+            if (heByDo > xHeadings[j] && heByDo < xHeadings[j + 1]) {
+                yi = j + 1;
+                break;
+            } else if (heByDo < yHeadings[0]) {
+                yi = 0;
+            } else {
+                yi = yHeadings.length - 1;
+            }
+        }
+
+        return cData[xi][yi];
+        
     }
 }

@@ -1,6 +1,6 @@
 class ShellDesigner {
 
-    public double ts, tstd;
+    private double ts, tstd;
     private Properties prop;
     int shellType = -1;
 
