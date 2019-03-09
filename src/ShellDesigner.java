@@ -1,9 +1,8 @@
-import java.util.*;
-
-class ShellDesign {
+class ShellDesigner {
+  
     private Properties prop;
 
-    ShellDesign(Properties properties) {
+    ShellDesigner(Properties properties) {
         prop = properties;
     }
 
@@ -23,7 +22,17 @@ class ShellDesign {
         return ts;
     }
 
-    double standardt() {
+    public double cyl() {
+        ts = ((prop.getDesignP()) * (prop.getDi()) / ((2 * prop.getF() * prop.getJ()) - (prop.getDesignP()))) / 1000;
+        return ts;
+    }
+
+    public double sph() {
+        ts = ((prop.getDesignP()) * (prop.getDi()) / ((4 * prop.getF() * prop.getJ()) - (prop.getDesignP()))) / 1000;
+        return ts;
+    }
+
+    public double standardt() {
         if (ts > 30) {
             tnew = ts;
         } else {
@@ -33,12 +42,10 @@ class ShellDesign {
 
         if (tnew < tstdarray[0]) {
             tstd = tstdarray[0];
-            break;
         } else if (tnew > tstdarray[24]) {
             tstd = tnew;
-            break;
         } else {
-            for (int i=0, i=24, i++){
+            for (int i=0; i<=24; i++){
                 if (tnew > tstdarray[i] && tnew < tst[i + 1]) {
                     tstd = tstdarray[i + 1];
                     break;
@@ -46,5 +53,6 @@ class ShellDesign {
             }
         }
         prop.setDo(tstd);
+        return tstd;
     }
 }
