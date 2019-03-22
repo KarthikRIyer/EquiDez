@@ -9,7 +9,7 @@ class HeadDesign {
     }
 
     public double flatHead() {
-        double C = 0;
+        double C = 0,t1=0;
         switch (prop.getHeadJointType()) {
             case 1:
                 C = 0.45;
@@ -24,7 +24,8 @@ class HeadDesign {
                 C = 0.55;
                 break;
         }
-        t = C * (prop.getDi()) * Math.sqrt(prop.getDesignP() / prop.getF())/1000.0;
+        t1 = C * (prop.getDi()) * Math.sqrt(prop.getDesignP() / prop.getF())/1000.0;
+        t = StandardThickness.standardt(t1, prop);
         return t;
     }
 
