@@ -1,39 +1,36 @@
-import java.util.Scanner;
 public class Design {
 
-    public static void main(String args[]){
+    HeadDesign headDesign;
+    NozzleCompensator nozzleCompensator;
+    Properties prop;
+    ShellDesigner shellDesigner;
 
-        HeadDesign headDesign;
-        NozzleCompensator nozzleCompensator;
-        Properties prop = new Properties();
-        ShellDesigner shellDesigner;
-
-        Scanner in=new Scanner(System.in);
-        int liqhead=0;
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int liqhead = 0, headtype = 0;
 
         System.out.println("Enter your working Pressure.(in kPa)");
-        prop.P=in.nextDouble();
+        prop.P = in.nextDouble();
         System.out.println("Is there any Liquid present?(Yes(1)/No(2))");
-        liqhead=in.nextInt();
-        if(liqhead==1){
+        liqhead = in.nextInt();
+        if (liqhead == 1) {
             System.out.print("Enter the height of the head.....  ");
-            prop.ht=in.nextDouble();
+            prop.ht = in.nextDouble();
             System.out.println();
             System.out.print("Enter density of the liquid.....  ");
-            prop.fluidDensity=in.nextDouble();
+            prop.fluidDensity = in.nextDouble();
             System.out.println();
         }
         System.out.println("Enter your design Temperature.(in K)");
-        prop.dT=in.nextDouble();
+        prop.dT = in.nextDouble();
         System.out.println("Enter value of maximum allowable stress i.e. f.(in *10^8)");
-        prop.f=in.nextDouble();
+        prop.f = in.nextDouble();
         System.out.println("Enter value of weld joint efficiency fator.");
-        prop.J=in.nextDouble();
+        prop.J = in.nextDouble();
         System.out.println("Which type of Shell do you want to design?");
         System.out.println("1.     Cylindrical Shell (type: 1)");
         System.out.println("2.     Spherical Shell   (type: 2)");
-        shellDesigner = new ShellDesigner(prop, 1);
-        double shellType = in.nextDouble();
+        shellDesigner.shellType = in.nextDouble();
         shellDesigner.getTr();
         shellDesigner.standardt();
 
@@ -41,6 +38,35 @@ public class Design {
         System.out.println("1.     Flat Head............ (type: 1)");
         System.out.println("2.     Conical Head......... (type: 2)");
         System.out.println("3.     Torispherical Head... (type: 3)");
+        headtype = in.nextInt();
+        switch (headtype) {
+            case 1:
+                System.out.println("Select the type of head joint present...");
+                System.out.println("1.                         (type: 1)");
+                System.out.println("2.                         (type: 2)");
+                System.out.println("3.                         (type: 3)");
+                System.out.println("4.                         (type: 4)");
+                int j = 0;
+                j = in.nextInt();
+                prop.setHeadJointType(j);
+                headDesign.flathead();
+                break;
+            case 2:
+                System.out.println("Select the value of alpha...");
+                System.out.println("1.     20 degree    (type: 1)");
+                System.out.println("2.     30 degree    (type: 2)");
+                System.out.println("3.     45 degree    (type: 3)");
+                System.out.println("4.     60 degree    (type: 4)");
+                int i = 0;
+                i = in.nextInt();
+                prop.setAlpha(i);
+                headDesign.conicalHead();
+                break;
+            case 3:
+                headDesign.torisphericalHead();
+                break;
+
+        }
 
 
     }
