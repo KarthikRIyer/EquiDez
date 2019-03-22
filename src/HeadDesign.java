@@ -24,7 +24,7 @@ class HeadDesign {
                 C = 0.55;
                 break;
         }
-        t = C * (prop.getDi()) * Math.sqrt(prop.getDesignP() / prop.getF());
+        t = C * (prop.getDi()) * Math.sqrt(prop.getDesignP() / prop.getF())/1000.0;
         return t;
     }
 
