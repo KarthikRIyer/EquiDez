@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 class Properties {
 
-    ArrayList<String> vesselClass, headJointType;
+    public static ArrayList<String> vesselClass, headJointType;
     double P = 0;
     double dP = 0;
     double dT = 0;

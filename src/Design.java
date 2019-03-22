@@ -8,6 +8,9 @@ public class Design {
         NozzleCompensator nozzleCompensator;
         Properties prop = new Properties();
         ShellDesigner shellDesigner;
+        double ringPadThickness = 0;
+        double headThickness = 0;
+        double shellThickness = 0;
 
         Scanner in = new Scanner(System.in);
         int liqhead = 0, headtype = 0;
@@ -36,7 +39,7 @@ public class Design {
         int shellType = in.nextInt();
         shellDesigner = new ShellDesigner(prop, shellType);
         shellDesigner.getTr();
-        shellDesigner.standardt();
+        shellThickness = shellDesigner.standardt();
 
         System.out.println("Please select type of head...");
         System.out.println("1.     Flat Head............ (type: 1)");
@@ -47,13 +50,12 @@ public class Design {
         switch (headtype) {
             case 1:
                 System.out.println("Select the type of head joint present...");
-                System.out.println("1.                         (type: 1)");
-                System.out.println("2.                         (type: 2)");
-                System.out.println("3.                         (type: 3)");
-                System.out.println("4.                         (type: 4)");
+                for (int i = 0; i < prop.getHeadJointTypeLis().size(); i++){
+                    System.out.println((i+1)+"."+prop.getHeadJointTypeLis().get(i)+"(type: "+(i+1)+")");
+                }
                 int j = in.nextInt();
                 prop.setHeadJointType(j);
-                headDesign.flatHead();
+                headThickness = headDesign.flatHead();
                 break;
             case 2:
                 System.out.println("Select the value of alpha...");
@@ -63,14 +65,53 @@ public class Design {
                 System.out.println("4.     60 degree    (type: 4)");
                 int i = in.nextInt();
                 prop.setAlpha(i);
-                headDesign.conicalHead();
+                headThickness = headDesign.conicalHead();
                 break;
             case 3:
-                headDesign.torisphericalHead();
+                headThickness = headDesign.torisphericalHead();
                 break;
 
         }
 
+        System.out.println("Is there a nozzle in the shell?(Yes(1)/No(2))");
+        int nozzlePresent = in.nextInt();
+        if (nozzlePresent == 1){
+            System.out.println("Enter inner diameter of nozzle: (mm)");
+            double Dni = in.nextDouble();
+            System.out.println("Enter outer diameter of nozzle: (mm)");
+            double Dno = in.nextDouble();
+            prop.setDni(Dni);
+            prop.setDno(Dno);
+            nozzleCompensator = new NozzleCompensator(prop, shellDesigner, shellType);
+            ringPadThickness = nozzleCompensator.getRingPadThickness();
+        }
+        System.out.println("\n\n");
+        System.out.println("=================================================================");
+        System.out.println("                            DESIGN                               ");
+        System.out.println("=================================================================");
+        if (shellThickness != 0 && shellType == 1){
+            System.out.println("Cylindrical Shell Thickness = "+shellThickness+" mm");
+        } else if (shellThickness != 0 && shellType == 2){
+            System.out.println("Spherical Shell Thickness = "+shellThickness+" mm");
+        }
+        if (headThickness != 0){
+            switch (headtype){
+                case 1:
+                    System.out.println("Flat Head Thickness = "+headThickness+" mm");
+                    break;
+                case 2:
+                    System.out.println("Conical Head Thickness = "+headThickness+" mm");
+                    break;
+                case 3:
+                    System.out.println("Torispherical Head Thickness = "+headThickness+" mm");
+                    break;
+            }
+        }
+        if (nozzlePresent == 1){
+            System.out.println("Nozzle thickness = "+(prop.getDno()-prop.getDni())+" mm");
+            System.out.println("Required ring pad thickness = "+ringPadThickness+" mm");
+        }
+        System.out.println("=================================================================");
 
     }
 
