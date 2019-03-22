@@ -32,8 +32,8 @@ public class Design {
         System.out.println("Which type of Shell do you want to design?");
         System.out.println("1.     Cylindrical Shell (type: 1)");
         System.out.println("2.     Spherical Shell   (type: 2)");
-        shellDesigner = new ShellDesigner(prop, 1);
-        double shellType = in.nextDouble();
+        int shellType = in.nextInt();
+        shellDesigner = new ShellDesigner(prop, shellType);
         shellDesigner.getTr();
         shellDesigner.standardt();
 
