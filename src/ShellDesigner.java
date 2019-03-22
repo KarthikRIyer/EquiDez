@@ -4,7 +4,7 @@ class ShellDesigner {
     private Properties prop;
     int shellType = -1;
 
-    ShellDesigner(Properties properties, int shellType) {
+    public ShellDesigner(Properties properties, int shellType) {
         prop = properties;
         this.shellType = shellType;
     }

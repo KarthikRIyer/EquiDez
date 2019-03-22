@@ -6,7 +6,7 @@ public class NozzleCompensator {
     int shellType = -1;
 
 
-    NozzleCompensator(Properties properties, ShellDesigner shellDesigner, int shellType) {
+    public NozzleCompensator(Properties properties, ShellDesigner shellDesigner, int shellType) {
         this.properties = properties;
         this.shellDesigner = shellDesigner;
         this.shellType = shellType;

@@ -20,7 +20,7 @@ class Properties {
     double H2 = 0;
     double ca = 0;
     double Do = 0;
-    double J = 0;
+    double J = 0.8;
     double tstd = 0;
     double tr = 0;
     int vesselClassCode = -1, headJointTypeCode = -1;
@@ -85,12 +85,33 @@ class Properties {
         return headJointTypeCode;
     }
 
+    public void setHeadJointType(int j){
+        headJointTypeCode = j;
+    }
+
     public int getVesselClassCode() {
         return vesselClassCode;
     }
 
     public double getAlpha() {
         return alpha;
+    }
+
+    public void setAlpha(int i){
+        switch(i){
+            case 1:
+                alpha = 20;
+                break;
+            case 2:
+                alpha = 30;
+                break;
+            case 3:
+                alpha = 45;
+                break;
+            case 4:
+                alpha = 60;
+                break;
+        }
     }
 
     public void setCorrosionAllowance(double ca) {
