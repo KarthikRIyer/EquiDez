@@ -52,7 +52,8 @@ class HeadDesign {
         t2std = StandardThickness.standardt(t2, prop);
         if (t1 > t2) {
             t = t1std;
-        } else {
+        }
+        else {
             t = t2std;
         }
         return t;
