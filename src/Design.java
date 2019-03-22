@@ -7,9 +7,20 @@ public class Design {
 
     public static void main(String args[]){
         Scanner in=new Scanner(System.in);
+        int liqhead=0;
 
         System.out.println("Enter your working Pressure.(in kPa)");
         prop.P=in.nextDouble();
+        System.out.println("Is there any Liquid present?(Yes(1)/No(2))");
+        liqhead=in.nextInt();
+        if(liqhead==1){
+            System.out.print("Enter the height of the head.....  ");
+            prop.ht=in.nextDouble();
+            System.out.println();
+            System.out.print("Enter density of the liquid.....  ");
+            prop.fluidDensity=in.nextDouble();
+            System.out.println();
+        }
         System.out.println("Enter your design Temperature.(in K)");
         prop.dT=in.nextDouble();
         System.out.println("Enter value of maximum allowable stress i.e. f.(in *10^8)");
@@ -22,7 +33,12 @@ public class Design {
         shellDesigner.shellType=in.nextDouble();
         shellDesigner.getTr();
         shellDesigner.standardt();
-        
+
+        System.out.println("Please select type of head...");
+        System.out.println("1.     Flat Head............ (type: 1)");
+        System.out.println("2.     Conical Head......... (type: 2)");
+        System.out.println("3.     Torispherical Head... (type: 3)");
+
 
     }
 
