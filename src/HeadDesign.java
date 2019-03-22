@@ -4,11 +4,11 @@ class HeadDesign {
     double t;
     private Properties prop;
 
-    HeadDesign(Properties properties) {
+    public HeadDesign(Properties properties) {
         prop = properties;
     }
 
-    double flatHead() {
+    public double flatHead() {
         double C = 0;
         switch (prop.getHeadJointType()) {
             case 1:
@@ -28,7 +28,7 @@ class HeadDesign {
         return t;
     }
 
-    double conicalHead() {
+    public double conicalHead() {
         double t1, t2, Z = 0, l, Dk, t1std, t2std;
         switch ((int) prop.getAlpha()) {
             case 20:
@@ -44,10 +44,10 @@ class HeadDesign {
                 Z = 3.2;
                 break;
         }
-        t1 = ((prop.getDesignP()) * (prop.getDo()) * Z / ((2 * prop.getF() * prop.getJ()))) / 1000;
-        l = 0.5 * Math.sqrt(1000 * (prop.getDo() * prop.getTStd()) / Math.cos(Math.toRadians(prop.getAlpha())));
-        Dk = ((1000 * prop.getDi()) - (2 * l * Math.sin(Math.toRadians(prop.getAlpha())))) / 1000;
-        t2 = (prop.getDesignP() * Dk) / (((2 * prop.getF() * prop.getJ()) - prop.getDesignP()) * Math.cos(Math.toRadians(prop.getAlpha())) * 1000);
+        t1 = ((prop.getDesignP()) * (prop.getDo()) * Z / ((2 * prop.getF() * prop.getJ()))) / 1000.0;
+        l = 0.5 * Math.sqrt(1000.0 * (prop.getDo() * prop.getTStd()) / Math.cos(Math.toRadians(prop.getAlpha())));
+        Dk = ((1000.0 * prop.getDi()) - (2 * l * Math.sin(Math.toRadians(prop.getAlpha())))) / 1000.0;
+        t2 = (prop.getDesignP() * Dk) / (((2 * prop.getF() * prop.getJ()) - prop.getDesignP()) * Math.cos(Math.toRadians(prop.getAlpha())) * 1000.0);
         t1std = StandardThickness.standardt(t1, prop);
         t2std = StandardThickness.standardt(t2, prop);
         if (t1 > t2) {
@@ -58,7 +58,7 @@ class HeadDesign {
         return t;
     }
 
-    double torisphericalHead() {
+    public double torisphericalHead() {
         double ri, Ri, trand, ro, Ro, param1, param2, param3, he, C;//param1=ho,param2=Do2/4*Ro,param3=sqrt(Do*ro/2)
         trand = prop.getTStd();
         ri = 0.06 * prop.getDi();
@@ -71,7 +71,7 @@ class HeadDesign {
             param3 = Math.sqrt((prop.getDo()) * ro / 2);
             he = Math.min(Math.min(param1, param2), param3);
             C = getTorisphericalC((he / prop.getDo()), (trand / prop.getDo()));
-            trand = ((prop.getDesignP()) * (prop.getDo()) * C) / ((2 * (prop.getF())) * prop.getJ());
+            trand = ((prop.getDesignP()) * (prop.getDo()) * C) / ((2 * (prop.getF())) * prop.getJ() * 1000.0);
         }
         t = StandardThickness.standardt(trand, prop);
         return t;
